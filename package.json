@@ -1,5 +1,5 @@
 {
-  "name": "platzi-video",
+  "name": "redux",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -13,7 +13,7 @@
   "keywords": [
     "react"
   ],
-  "author": "LeonidasEsteban",
+  "author": "RamiroTorrejon",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -35,6 +35,7 @@
     "express": "4.16.2",
     "prop-types": "15.6.0",
     "react": "16.1.1",
-    "react-dom": "16.1.1"
+    "react-dom": "16.1.1",
+    "redux": "^4.0.1"
   }
 }
