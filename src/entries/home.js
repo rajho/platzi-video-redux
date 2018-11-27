@@ -1,38 +1,56 @@
 import React from 'react';
 import { render } from 'react-dom';
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import { Provider } from 'react-redux'
-import reducer from '../reducers/data'
+import { Map as map} from 'immutable'
+import logger from 'redux-logger'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk'
 
+import reducer from '../reducers/index'
 import Home from '../pages/containers/home';
-// import Playlist from './src/playlist/components/playlist';
-// import data from '../api.json';
-import data from '../schemas/index'
 
-// console.log(normalizedData)
+// function logger({ getState, dispatch}){
+//   // return (metodo para despachar el siguiente middleware) => {
+//   return (next) => {
+//     return (action) => {
+//       console.log('este es mi viejo estado', getState().toJS())      
+//       console.log('vamos a enviar esta acción', action)
+//       const value = next(action)
+//       console.log('este es mi nuevo estado', getState().toJS())
+//       return value
+//     }
+//   }
+// }
 
-const initialState = {
-  data: {
-    entities: data.entities,
-    categories: data.result.categories    
-  },
-  search: []
-}
+// const logger = ({ getState, dispatch}) => next => action => {
+//   console.log('este es mi viejo estado', getState().toJS())      
+//   console.log('vamos a enviar esta acción', action)
+//   const value = next(action)
+//   console.log('este es mi nuevo estado', getState().toJS())
+//   return value
+// }
 
 const store = createStore(
   reducer,
-  initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  map(),
+  composeWithDevTools(
+    applyMiddleware(
+      logger,
+      thunk
+    )
+  )    
 )
-// console.log(store.getState())
 
 const homeContainer = document.getElementById('home-container')
 
-// ReactDOM.render(que voy a renderizar, donde lo haré);
-//<Home />
 render( 
   <Provider store={store}>
     <Home />   
   </Provider>
 , homeContainer);
 
+// RETO002: X para eliminar Media
+// RETO003: Titulos / Autores editables
+// RETO004: Agregar nuevo Media
+// RETO005: Agregar botones para Buscar, Buscar Async y Agregar
